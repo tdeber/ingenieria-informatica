@@ -1,0 +1,17 @@
+#los datos reg no se usan en inputs.
+#Estos sirven cuando al señal se modifica dentro de un bloque procedural como
+#un always o initial.
+
+
+Entradas y salidas al modulo:
+    Basicamente son entradas simuladas
+    Y salidas que queremos ver
+
+    Es de tipo reg porque van a ir cambiando
+
+
+UUT
+    Basicamente es donde conectamos los "botones"
+    con mis datos de entrada simulados. Osea el boton "x" va a valer "y"
+    .x(y)
+    

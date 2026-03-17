@@ -1,0 +1,4 @@
+#Rotar el valor en t0 = 13 (0b1101), 1 bit a la derecha (el bit que sale por la 
+#derecha entra por la izquierda). 
+
+li t0,13

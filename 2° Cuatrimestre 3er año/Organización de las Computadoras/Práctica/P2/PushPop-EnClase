@@ -1,0 +1,18 @@
+#Push de valores al stack
+
+.data
+	valor1: .word 10
+	valor2: .word 20
+	
+.text
+.global main
+
+main:
+	#Push de valores al stack
+	lw t0,valor1 	#Carga el valor1 en t0
+	addi sp,sp,-4	#Reserva espacio en stack
+	sw t0, 0(sp)	#Guardar t0 en stack
+	
+	lw t1,valor2	#Cargar valor2 en t1
+	addi sp,sp,-4	#Reserva espacio
+	sw t1,0(sp)		#Guarda t1 en stack

@@ -1,0 +1,12 @@
+
+invertir(L, R) :- invertir_acumulador(L, [], R).
+
+% Caso base: una lista vacía es invertida en el acumulador, resultando en el acumulador mismo
+invertir_acumulador([], Acc, Acc).
+
+% Caso recursivo: divide la lista en Cabeza y Cola, e invierte la Cola, acumulando la Cabeza
+invertir_acumulador([H|T], Acc, R) :-
+    invertir_acumulador(T, [H|Acc], R).
+
+
+

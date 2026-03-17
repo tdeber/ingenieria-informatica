@@ -1,0 +1,22 @@
+.data
+	mayor: .word 99
+	
+.text
+.global main
+
+main:
+	la t0,mayor
+	li t1,110
+	li t2,21
+	
+	slt t3,t1,t2	
+	
+	beq t3,x0,esmayor
+	j esmenor
+
+	esmayor:
+		sw t1,0(t0)
+		j fin
+	esmenor:
+		sw t2,0(t0)
+	fin:

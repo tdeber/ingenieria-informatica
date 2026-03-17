@@ -1,0 +1,9 @@
+.text
+.global main
+
+main:
+	addi t0,x0,1
+	csrrs x0,0x300, t0	#"Enciende" el bit 0 del CSR mstatus
+	
+	csrrc t0,0x300,t0		#"Apaga" el bit 0 del CSR mstatus
+	

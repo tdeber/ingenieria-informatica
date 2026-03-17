@@ -1,0 +1,45 @@
+from typing import List
+from datetime import datetime
+from abc import ABC, abstractmethod
+
+
+class Medio(ABC):
+    @abstractmethod
+    def enviar_notificacion(self, destinatario: str, mensaje: str):
+        pass
+
+
+class CorreoElectronico(Medio):
+    def enviar_notificacion(self, destinatario: str, mensaje: str):
+        # Lógica para enviar notificación por correo electrónico
+        print(f"Correo electrónico enviado a {destinatario}: {mensaje}")
+
+class MensajeTXT(Medio):
+    def enviar_notificacion(self, destinatario: str, mensaje: str):
+        # Lógica para enviar notificación por mensajeTXT
+        print(f"Mensaje de texto enviado a {destinatario}: {mensaje}")
+
+
+class Notificador:
+    def __init__(self, medio:Medio):
+        self.medio = medio
+
+    def enviar_notificacion(self, destinatario: str, mensaje: str):
+        self.medio.enviar_notificacion(destinatario, mensaje)
+
+
+if __name__ == "__main__":
+    # Uso del código actual
+    correo_electronico = CorreoElectronico()
+    notificador = Notificador(correo_electronico)
+    notificador.enviar_notificacion("usuario@example.com", "¡Tu tarea está lista!")
+
+    mensajetxt = MensajeTXT()
+    notificador2 = Notificador(mensajetxt)
+    notificador2.enviar_notificacion("3424229968","HolaMaquina")
+
+#Se violaba el principio LSP 
+#DIP
+#ISP
+#
+#

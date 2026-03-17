@@ -1,0 +1,178 @@
+import datetime
+
+class Concesionaria:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.autos = []
+        self.camionetas = []
+        self.motos = []
+        self.accesorios = []
+        self.ventas = []
+    
+    def agregarAuto(self, auto):
+        self.autos.append(auto)
+    
+    def agregarCamioneta(self, camioneta):
+        self.camionetas.append(camioneta)
+
+    def agregarMoto(self, moto):
+        self.motos.append(moto)
+    
+    def agregarAccesorio(self, accesorio):
+        self.accesorios.append(accesorio)
+    
+    def agregarVenta(self, venta):
+        self.ventas.append(venta)
+
+    def calcVentaUsadosNacionales(self):
+        monto = 0
+
+        for venta in self.ventas:
+            monto += venta.montoTotalVenta()
+
+        return monto
+
+
+
+class Comprador:
+    def __init__(self, nombre, dni):
+        self.nombre = nombre
+        self.dni = dni
+    
+    def __str__(self):
+        return F"{self.nombre}, {self.dni}"
+    
+
+class Venta:
+    def __init__(self, fecha, comprador):
+        self.fecha = fecha
+        self.comprador = comprador
+        self.detalleVenta = []
+    
+    def agregarDetalleVenta(self, detalle_venta):
+        self.detalleVenta.append(detalle_venta)
+
+    def montoTotalVenta(self):
+        monto = 0
+        for detVenta in self.detalleVenta:
+            monto += detVenta.verMonto()
+        
+        return monto
+
+class DetalleVenta:
+    def __init__(self, venta, monto, producto):
+        self.venta = venta
+        self.monto = monto
+        self.producto = producto
+    
+    def verMonto(self):
+        return self.monto
+
+
+class Accesorio:
+    def __init__(self, nombre, precio):
+        self.nombre = nombre
+        self.precio = precio
+    
+    def verPrecio(self):
+        return self.precio
+
+    def __str__(self):
+        return F"{self.nombre}"
+
+
+class Duenio:
+    def __init__(self, nombre, dni):
+        self.nombre = nombre 
+        self.dni = dni
+
+
+class Vehiculo:
+    def __init__(self, marca, modelo, patente, precio, km, estado):
+        self.marca = marca
+        self.modelo = modelo
+        self.patente = patente
+        self.precio = precio
+        self.km = km
+        self.estado = estado
+        self.duenio = None
+
+    def agregarDuenio(self, duenio):
+        if(self.estado == "ceroKm"):
+            print("El vehiculo no posee dueño anterior, pues es 0 Km")
+        else:
+            self.duenio = duenio
+
+
+class Pais:
+    def __init__(self, nombre, impuesto):
+        self.nombre = nombre
+        self.impuesto = impuesto
+
+    def verImpuesto(self):
+        return self.impuesto
+    
+    def __str__(self):
+        return F"{self.nombre}"
+
+class Auto(Vehiculo):
+    def __init__(self, marca, modelo, patente, precio, km, estado, pais):
+        super().__init__(marca, modelo, patente, precio, km, estado)
+        self.pais = pais
+
+    def esNacional(self):
+        return (self.pais.__str__() == "Argentina")
+    def verEstado(self):
+        return self.estado
+    def verPrecio(self):
+        return self.precio + self.pais.verImpuesto()
+
+
+class Moto(Vehiculo):
+    def __init__(self, marca, modelo, patente, precio, km, estado):
+        super().__init__(marca, modelo, patente, precio, km, estado)
+
+
+class Camioneta(Vehiculo):
+    def __init__(self, marca, modelo, patente, precio, km, estado):
+        super().__init__(marca, modelo, patente, precio, km, estado)
+
+
+if __name__ == "__main__":
+    concesionaria1 = Concesionaria("Macua")
+   
+    pais1 = Pais("Argentina",0)
+    pais2 = Pais("EEUU",1200000)
+    pais3 = Pais("Noruega",7000000)
+   
+    duenio1 = Duenio("Pepito", 123)
+    duenio3 = Duenio("Juanito", 456)
+
+    auto1 = Auto("Renault","Oroch","AB779HD",11000000, 150000, "Usado",pais1)
+    auto1.agregarDuenio(duenio1)
+    auto2 = Auto("Dodge","FULL", "JKQ123", 22000000, 0, "ceroKm", pais2)
+    auto3 = Auto("Lamborghini","Huracan","ESP376",360000000, 2000, "Usado", pais3)
+    auto3.agregarDuenio(duenio3)
+
+    comprador1 = Comprador("Nicolas", 789)
+    comprador2 = Comprador("JuanDiego", 741)
+    comprador3 = Comprador("Nicolai", 852)
+
+    venta1 = Venta(20030502, comprador1)
+    detVent1 = DetalleVenta(venta1, 11350000, auto1)
+    venta1.agregarDetalleVenta(detVent1)
+
+    venta2 = Venta(20030508, comprador2)
+    detVent2 = DetalleVenta(venta2, 22750000, auto2)
+    venta2.agregarDetalleVenta(detVent2)
+
+    venta3 = Venta(20030512, comprador3)
+    detVent3 = DetalleVenta(venta3, 388000000, auto3)
+    venta3.agregarDetalleVenta(detVent3)
+
+    concesionaria1.agregarVenta(venta1)
+    concesionaria1.agregarVenta(venta2)
+    concesionaria1.agregarVenta(venta3)
+    
+    print(concesionaria1.calcVentaUsadosNacionales())
+

@@ -1,0 +1,15 @@
+#Intercambiar los valores de t0 = 10 y t1 = 20 sin usar registros adicionales.
+
+#Tengo dos formas de intercambiar: de forma aritmetica o utilizando la
+	#propiedad del XOR.
+	
+addi t0,x0,10
+addi t1,x0,20
+#Forma aritmetica:
+sub t1,t1,t0 #->t1=t1-t0 = 20 - 10
+add t0,t0,t1 #-> t0=t0+t1 = 10 + 10
+
+#Forma XOR
+xor t0,t0,t1 # t0 = 01010 xor 10100 = 11110 = 30
+xor t1,t1,t0 # t1 = 10100 xor 11110 = 01010 = 10
+xor t0,t0,t1 # t0 = 11110 xor 01010 = 10100 = 20 

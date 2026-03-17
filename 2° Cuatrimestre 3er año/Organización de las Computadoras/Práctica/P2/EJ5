@@ -1,0 +1,31 @@
+#Crea un programa en ensamblador que compare dos valores y guarde el mayor 
+#en memoria.
+
+.data 
+mayor: .word 0
+
+.text
+li t0,15
+li t1,10
+la t3, mayor
+
+slt t2,t0,t1
+beq t2,x0,esmenor
+sw t1, 0(t3)
+
+esmenor:
+	sw t0,0(t3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

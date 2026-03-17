@@ -1,0 +1,19 @@
+#lang racket
+
+
+(define largo
+  (lambda(lista)
+    (if(null? lista)
+       0
+       (+ (largo(cdr lista)) 1))))
+
+#|
+(define (largo lista)
+    (if(null? lista)
+       0
+       (+ (largo(cdr lista)) 1)))
+
+(display (largo '(1 4 8)))
+|#
+
+(display (largo '(1 4 8)))

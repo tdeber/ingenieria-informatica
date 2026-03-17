@@ -1,0 +1,203 @@
+from typing import List
+from datetime import datetime
+from abc import ABC, abstractmethod
+
+class Persona:
+    def __init__(self, nombre: str, apellido:str, CUIL: int):
+        self.nombre = nombre 
+        self.apellido = apellido
+        self.CUIL = CUIL
+
+    def getNombre(self):
+        return self.nombre
+    
+    def getApellido(self):
+        return self.apellido
+    
+    def getCuil(self):
+        return self.CUIL
+    
+
+class Monto(ABC):
+    @abstractmethod
+    def getCantidad(self):
+        pass
+    
+    @abstractmethod
+    def convertir_a_peso(self):
+        pass
+
+class Peso(Monto):
+    def __init__(self, cantidad):
+        self.cantidad = cantidad
+    
+    def getCantidad(self):
+        return self.cantidad
+    
+    def convertir_a_peso(self):
+        return self.cantidad
+
+
+class Dolar(Monto):
+    def __init__(self, cantidad):
+        self.cantidad = cantidad
+    
+    def getCantidad(self):
+        return self.cantidad
+    
+    def convertir_a_peso(self):
+        return self.cantidad * 1000
+ 
+
+class Real(Monto):
+    def __init__(self, cantidad):
+        self.cantidad = cantidad
+    
+    def getCantidad(self):
+        return self.cantidad
+    
+    def convertir_a_peso(self):
+        return self.cantidad * 280
+
+
+class Transaccion(ABC):
+    @abstractmethod
+    def getFecha(self):
+        pass
+
+
+class Deposito(Transaccion):
+    def __init__(self, fecha:datetime, monto:Monto):
+        self.fecha = fecha
+        self.monto = monto
+
+    def getFecha(self):
+        return self.fecha
+    
+    def getMonto(self):
+        return self.monto.convertir_a_peso()
+
+
+class Extraccion(Transaccion):
+    def __init__(self, fecha:datetime, monto:Monto):
+        self.fecha = fecha
+        self.monto = monto
+
+    def getFecha(self):
+        return self.fecha
+    
+    def getMonto(self):
+        return self.monto.convertir_a_peso()
+
+
+class ConsultaSaldo(Transaccion):
+    def __init__(self, fecha:datetime, monto:Monto):
+        self.fecha = fecha
+        self.monto = monto
+
+    def getFecha(self):
+        return self.fecha
+    
+
+class HistTransacciones:
+    def __init__(self):
+        self.depositos:list[Deposito] = []
+        self.extracciones:list[Extraccion] = []
+        self.consultas:list[ConsultaSaldo] = []
+
+    def addDepo(self, deposito):
+        self.depositos.append(deposito)
+
+    def addExt(self, extraccion):
+        self.extracciones.append(extraccion)
+
+    def calc_cant_transacciones(self, p1:datetime , p2:datetime):
+        c = 0
+
+        for deposito in self.depositos:
+            if p1 < deposito.getFecha() < p2:
+                c += 1
+
+        for extraccion in self.extracciones:
+            if p1 < deposito.getFecha() < p2:
+                c += 1
+        
+        return c
+
+    def suma_transacciones(self, p1:datetime, p2:datetime):
+        s = 0
+
+        for deposito in self.depositos:
+            if p1 < deposito.getFecha() < p2:
+                s += deposito.getMonto()
+
+        for extraccion in self.extracciones:
+            if p1 < extraccion.getFecha() < p2:
+                s += extraccion.getMonto()
+        
+        return s
+
+
+class Cuenta:
+    def __init__(self, nro, titular: Persona, historial:HistTransacciones):
+        self.nro = nro
+        self.titular = titular
+        self.HistorialTransac = historial
+    
+    def calc_comision(self, p1:datetime, p2:datetime):
+
+        cant_transacciones = self.HistorialTransac.calc_cant_transacciones(p1,p2)
+        suma_transacciones = self.HistorialTransac.suma_transacciones(p1,p2)
+
+        comision = 30 - ((suma_transacciones / cant_transacciones) * (5/100))
+
+        return comision
+
+    def getNroCuenta(self):
+        return self.nro
+
+
+class CDRG:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.cuentas: List[Cuenta] = []
+
+    def addCuenta(self, cuenta):
+        self.cuentas.append(cuenta)
+
+    def listarComision(self, p1, p2):
+        for cuenta in self.cuentas:
+            return F"{cuenta.getNroCuenta()}, {cuenta.calc_comision(p1,p2)}"
+
+
+if __name__ == "__main__":
+    persona1 = Persona("tomas", "debernardi", 44780831)
+    persona2 = Persona("emiliano", "debernardi", 415147779)
+
+    monto1 = Peso(50000)
+    monto2 = Dolar(50)
+    monto3 = Real(1000)
+
+    desposito1 = Deposito(datetime(2024, 2, 22),monto1)
+    desposito2 = Deposito(datetime(2024, 2, 28),monto2)
+    desposito3 = Deposito(datetime(2024, 2, 8),monto3)
+
+    monto4=Peso(20000)
+
+    extraccion1 = Extraccion(datetime(2024, 5, 22),monto4)
+
+    hist1 = HistTransacciones()
+    hist2 = HistTransacciones()
+    hist1.addDepo(desposito1)
+    hist1.addDepo(desposito2)
+    hist2.addDepo(desposito3)
+    hist1.addExt(extraccion1)
+
+    cuenta1=Cuenta(1,persona1,hist1)
+    cuenta2=Cuenta(2, persona2,hist2)
+
+    banco = CDRG("nacion")
+    banco.addCuenta(cuenta1)
+    banco.addCuenta(cuenta2)
+
+    banco.listarComision(datetime(2024, 2, 1),datetime(2024, 6, 1))

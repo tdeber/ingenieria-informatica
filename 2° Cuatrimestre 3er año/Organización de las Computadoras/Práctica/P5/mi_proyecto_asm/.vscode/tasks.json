@@ -1,0 +1,85 @@
+
+{ 
+    "version": "2.0.0", 
+    "tasks": [ 
+        { 
+            "label": "Build Project", 
+            "type": "shell", 
+            "command": "make", 
+            "args": ["all", "-j4"], 
+            "group": { 
+                "kind": "build", 
+                "isDefault": true 
+            }, 
+            "problemMatcher": [ 
+                { 
+                    "owner": "assembler", 
+                    "fileLocation": ["relative", "${workspaceFolder}"], 
+                    "pattern": { 
+                        "regexp": 
+"^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$", 
+                        "file": 1, 
+                        "line": 2, 
+                        "column": 3, 
+                        "severity": 4, 
+                        "message": 5 
+                    } 
+                } 
+            ], 
+            "detail": "Compila el proyecto en assembly para ESP32-C3 usando 4 jobs en paralelo", 
+            "presentation": { 
+                "reveal": "always", 
+                "panel": "dedicated" 
+            } 
+        }, 
+        { 
+            "label": "Clean Project", 
+            "type": "shell", 
+            "command": "make", 
+            "args": ["clean"], 
+            "group": "build", 
+            "problemMatcher": [], 
+            "detail": "Limpia los archivos generados", 
+            "presentation": { 
+                "reveal": "always", 
+                "panel": "dedicated" 
+            } 
+        }, 
+        { 
+            "label": "Flash ESP32-C3", 
+            "type": "shell", 
+            "command": "make", 
+            "args": ["flash"], 
+            "group": "build", 
+            "problemMatcher": [], 
+            "detail": "Flashea el firmware en el ESP32-C3", 
+            "presentation": { 
+                "reveal": "always", 
+                "panel": "dedicated", 
+                "clear": true 
+            } 
+        }, 
+        { 
+            "label": "Monitor Serial", 
+            "type": "shell", 
+            "command": "idf.py", 
+            "args": ["monitor"], 
+            "group": "test", 
+            "problemMatcher": [], 
+            "detail": "Inicia el monitor serial para ver la salida del ESP32-C3", 
+            "presentation": { 
+                "reveal": "always", 
+                "panel": "new", 
+                "focus": true 
+            } 
+        }, 
+        { 
+            "label": "Build + Flash", 
+            "dependsOrder": "sequence", 
+            "dependsOn": ["Build Project", "Flash ESP32-C3"], 
+            "group": "build", 
+            "problemMatcher": [], 
+            "detail": "Compila y flashea el firmware en un solo paso" 
+        } 
+    ] 
+}

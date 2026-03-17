@@ -1,0 +1,15 @@
+.data
+	num: .word 6
+	
+.text
+.global main
+
+main:
+	la t0,num		#Dirección del valor
+	lw t1,0(t0)		#El valor
+	
+	loop_while:
+		beq t1,x0,fin
+		addi t1,t1,-1
+		j loop_while
+	fin:

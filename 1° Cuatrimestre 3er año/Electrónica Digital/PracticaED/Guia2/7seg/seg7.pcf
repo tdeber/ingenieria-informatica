@@ -1,0 +1,23 @@
+
+#------ User LEDs
+set_io --warn-no-port LED3 4  #-- output
+set_io --warn-no-port LED2 3  #-- output
+set_io --warn-no-port LED1 2  #-- output
+set_io --warn-no-port LED0 1  #-- output
+
+
+#Mis entradas del .v
+set_io --warn-no-port A 34  #-- input
+set_io --warn-no-port B 33  #-- input
+set_io --warn-no-port C 32  #-- input
+set_io --warn-no-port D 31  #-- input
+
+#Mis salidas a,b,c,d,e,f,g
+#deben ser igual a mi output wire [6:0] seg_7 del .v
+set_io --warn-no-port seg_7[0] 106  #-- output
+set_io --warn-no-port seg_7[1] 104  #-- output
+set_io --warn-no-port seg_7[2] 98  #-- output
+set_io --warn-no-port seg_7[3] 96  #-- output
+set_io --warn-no-port seg_7[4] 85  #-- output
+set_io --warn-no-port seg_7[5] 83  #-- output
+set_io --warn-no-port seg_7[6] 81  #-- output

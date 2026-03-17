@@ -1,0 +1,59 @@
+from typing import List
+from datetime import datetime
+from abc import ABC, abstractmethod
+
+class Dispositivo(ABC):
+    @abstractmethod
+    def contar_pieza(self):
+        pass
+
+
+class Celular(Dispositivo):
+    def __init__(self, marca: str, modelo: str, pantalla: bool):
+        self.marca = marca
+        self.modelo = modelo
+        self.pantalla = pantalla
+
+    def contar_pieza(self):
+        return "Celular piezas X"
+
+class Tablet(Dispositivo):
+    def __init__(self, marca: str, modelo: str, pantalla: bool, lapiz: bool):
+        self.marca = marca
+        self.modelo = modelo
+        self.pantalla = pantalla
+        self.lapiz = lapiz
+
+    def contar_pieza(self):
+        return "Tablet piezas X"
+
+class Smartwatch(Dispositivo):
+    def __init__(self, marca: str, modelo: str, pantalla: bool, gps: bool):
+        self.marca = marca
+        self.modelo = modelo
+        self.pantalla = pantalla
+        self.gps = gps
+
+    def contar_pieza(self):
+        return "Smartwatch piezas X"
+    
+
+def contar_piezas_reparacion(dispositivos: list):
+    for dispositivo in dispositivos:
+        print(dispositivo.contar_pieza())
+
+
+
+# Ejemplo de uso
+
+if __name__ == "__main__":
+    dispositivos = [
+    Celular("Samsung", "Galaxy S20", True),
+    Tablet("Apple", "iPad Pro", True, True),
+    Smartwatch("Apple", "Watch Series 6", True, True)
+    ]
+    contar_piezas_reparacion(dispositivos)
+
+
+#se viola el principio: OpenClose y bueno el de reponsabilidad unica pero para estos casos
+#no influye mucho

@@ -1,0 +1,32 @@
+import datetime
+import hashlib
+
+
+class Persona:
+    def __init__(self, nombre, apellido, fecha_nacimiento, password):
+        # Completar
+        self.nombre = nombre
+        self.apellido = apellido
+        self.fecha_nacimiento = fecha_nacimiento
+        self.password = hashlib.sha256(password.encode()).hexdigest()
+
+    def _calcular_edad(self):
+      edad = datetime.date.today().year - self.fecha_nacimiento.year
+      if datetime.date.today().month < self.fecha_nacimiento.month:
+        edad = edad-1
+      elif ((datetime.date.today().month == self.fecha_nacimiento.month) and (datetime.date.today().day < self.fecha_nacimiento.day)):
+        edad = edad-1
+      return edad
+
+    def mostrar(self):
+      print(self.nombre,",",self.apellido,":",self._calcular_edad(),
+            ".",self.fecha_nacimiento.day," ",self.fecha_nacimiento.month)
+    
+    def validar_pass(self, contra):
+       password2 = hashlib.sha256(contra.encode()).hexdigest()
+       return (self.password == password2)
+      
+if __name__ == "__main__":
+   persona1 = Persona("Juan", "Perez", datetime.date(1990, 5, 15),"password")
+   print(persona1.validar_pass("hola"))
+   print(persona1.validar_pass("password"))

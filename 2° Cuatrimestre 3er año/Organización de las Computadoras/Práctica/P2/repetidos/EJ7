@@ -1,0 +1,29 @@
+.data
+	resultado: .word 99
+	
+.text
+.global main
+
+main:
+	la t0, resultado
+	li t1, 0
+	
+	slt t2,t1,x0	#1 -> neg
+	
+	bne t2,x0,negativo
+	beq t1,x0, escero
+	j positivo
+	
+	negativo:
+		li t3,-1
+		sw t3,0(t0)
+		j fin
+	escero:
+		sw x0,0(t0)
+		j fin
+	positivo:
+		li t3,1
+		sw t3,0(t0)
+		j fin
+	fin:
+	

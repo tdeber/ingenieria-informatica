@@ -1,0 +1,6 @@
+#Subruntinas
+
+Cuando yo llamo a una subrutina
+los argumento se los paso colocandolos en (a0,a7)
+y luego el resultado lo devuelvo en a0, y si es largo,
+lo extiendo a a1 y asi sucesivamente.

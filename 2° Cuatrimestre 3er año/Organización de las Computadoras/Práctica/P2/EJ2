@@ -1,0 +1,21 @@
+#Implementa una función que recorra un array de 5 enteros y sume todos sus 
+#elementos usando direccionamiento indexado. 
+
+.data
+array : .word 10,20,30,40,50 #Array de 5 enteros (cada uno ocupa 4 bytes)
+
+.text
+la t1,array #Guardo en t1 la dirección base de la array
+li t0,0 #Contador
+li t2,0 #Sumador
+
+loop:
+	lw t3, 0(t1) #Cargo la dirección del array en t3
+	add t2,t2,t3 #t2 = t2 + t3. Acá sumo los valores del array
+	addi t0,t0,1 #Incremento el contador hasta 5
+	addi t1,t1,4 #Me muevo 4 bytes en el array
+	
+	slti t4,t0,5 #Si t0<5 -> t4=1
+	bne t4,x0,loop #Mientras t4!=0 sigo en el loop
+	
+fin:

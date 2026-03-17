@@ -1,0 +1,42 @@
+#Escribe un programa en ensamblador que: 
+	#a. Cargue dos números en registros. 
+	#b. Realice suma, resta, multiplicación y división. 
+	#c. Almacene los resultados en memoria. 
+	#d. Verifica en "Register View" que los valores sean correctos.
+	
+
+#Espacio para los resultados
+.data
+res_suma: .word 0
+res_resta: .word 0
+res_mult: .word 0
+res_div: .word 0
+
+.text
+#---Cargo los números en el registro ---
+addi t0,x0,4 #t0=4
+addi t1,x0,2 #t1=2
+
+#---Suma---
+add t2,t0,t1	# t2= t0+t1
+la t3,res_suma 	#t3 guarda la dirección de memoria de res_suma
+sw t2,0(t3)	#Guardo el valor de t2 en la dirección que almacena t3
+
+#---Resta---
+sub t2,t0,t1
+la t3, res_resta
+sw t2,0(t3)
+
+#---Multiplicación---
+addi t4,x0,0 #acumulador
+addi t5,x0,0 #contador
+
+loop:
+	add t4,t4,t0
+	addi t5,t5,1
+	slt t6,t5,t1
+	bne t6,x0,loop
+la t3, res_mult
+sw t4,0(t3)
+
+#---División---

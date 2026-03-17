@@ -1,0 +1,21 @@
+#Implemente un programa que multiplique los primeros 4 números enteros 
+#positivos. (1+2+3+4)
+
+.text
+li t0,0	#Acumulador
+li t1,1	#Incremento los numeros
+li t2,0	#Contador de bucle (4)
+
+loop:
+	add t0,t0,t1
+	addi t1,t1,1
+	addi t2,t2,1
+	
+	slti t3,t2,4
+	bne t3,x0,loop
+fin:
+
+
+
+
+

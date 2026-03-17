@@ -1,0 +1,24 @@
+# simulaciones verilog
+*.vcd
+# ejecutables
+*.exe
+
+# objetos compilados
+*.o
+*.obj
+
+# simulaciones
+*.vcd
+*.out
+*.vvp
+
+# carpetas build
+bin/
+tmp/
+Debug/
+Release/
+build/
+x64/
+
+# temporales
+*.log

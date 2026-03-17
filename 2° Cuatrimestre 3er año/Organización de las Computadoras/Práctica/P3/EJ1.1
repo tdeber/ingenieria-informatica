@@ -1,0 +1,20 @@
+.data
+	valor1: .word 4
+	valor2: .word 6
+
+.text
+.global main
+
+main:
+	la t0,valor1
+	la t1,valor2
+	
+	lw t0,0(t0)
+	lw t1,0(t1)
+	
+	addi sp,sp,-8
+	sw t0,4(sp)
+	sw t1,0(sp)
+	
+	lw t0,0(sp)
+	lw t1,4(sp)

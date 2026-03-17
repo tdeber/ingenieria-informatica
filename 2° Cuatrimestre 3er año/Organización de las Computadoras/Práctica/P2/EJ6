@@ -1,0 +1,28 @@
+#Escribir un programa que implemente un contador ascendente hasta un valor 
+#determinado usando un ciclo FOR
+
+li t0,5 #Limite del for
+li t1,0 #Acumulador ascendente
+
+
+loop_for:
+	addi t1,t1,1
+	bge t1,t0,fin
+	j loop_for
+	
+fin:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

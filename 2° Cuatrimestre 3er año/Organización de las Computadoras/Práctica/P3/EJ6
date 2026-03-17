@@ -1,0 +1,58 @@
+#Cuando guardo un ascii por cada letra ocupo 1 byte
+#Con word guardo 4 bytes
+#Ademas tener encuenta que asciz me coloca un byte nulo 
+	#al final, o sea, el final de la dirección
+	#seria 14-1
+
+.data
+	string: .asciz "anitalavalatina"
+	length: .word 14
+	
+.text
+.global main
+
+main:
+	la a1,string
+	la a2,length
+	
+	lw a2,0(a2)
+	jal es_palindromo
+	
+	ecall
+	
+es_palindromo:
+	add t0,x0,a1	#Inicio de la string
+	add t1,t0,a2	#Final de la string
+	
+	addi a0,x0,1		#Ya supongo que lo es
+	
+	loop_while:
+		slt t4,t0,t1
+		beq t4,x0,fin
+		
+		lb t2,0(t0)
+		lb t3,0(t1)
+		
+		bne t2,t3,noes
+		
+		addi t0,t0,1
+		addi t1,t1,-1
+		j loop_while
+		
+noes:
+	addi a0,x0,0
+	j fin
+	ret
+		
+fin:		
+	ret	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

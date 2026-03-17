@@ -1,0 +1,138 @@
+from typing import List
+from datetime import datetime
+
+
+
+class Comision:
+    def __init__(self, fecha_inicio: datetime, id, titular):
+        self.fecha_inicio = fecha_inicio
+        self.id = id
+        self.titular = titular
+        self.alumnos: list[Alumno] = []
+
+    def agregar_alumno(self, alumno):
+        self.alumnos.append(alumno)
+
+    def listar_alumnos(self):
+        for alumno in self.alumnos:
+            print(alumno.nombre)
+
+
+
+class Catedra:
+    def __init__(self, nombre, docentes):
+        self.nombre = nombre
+        self.docentes = docentes
+        self.comisiones:list[Comision] = []
+
+    def agregarComision(self, comision):
+        self.comisiones.append(comision)
+
+    def listar_alumnos_anioencurso(self):
+        for comision in self.comisiones:
+            if comision.fecha_inicio == datetime.today():
+                comision.listar_alumnos()
+
+
+
+class Universidad:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.carreras: list[Carrera] = []
+
+    def agregar_Carrera(self, carrera):
+        self.carreras.append(carrera)
+
+    def listar_alumnos(self,catedra: Catedra):
+        catedra.listar_alumnos_anioencurso()
+
+
+class Persona:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+
+class Alumno(Persona):
+    def __init__(self, nombre, fecha_ingreso: datetime, fecha_egreso: datetime):
+        super().__init__(nombre)
+        self.fecha_egreso = fecha_egreso
+        self.fecha_ingreso = fecha_ingreso
+        self.examenes: List[Examen] = []
+
+    def anadir_examen(self, examen):
+        self.examenes.append(examen)
+
+class Docente(Persona):
+    def __init__(self, nombre):
+        super().__init__(nombre)
+        
+
+
+
+
+class Carrera:
+    def __init__(self, nombre, catedras:list[Catedra], inscriptos: list[Alumno]):
+        self.nombre = nombre
+        self.catedras = catedras
+        self.inscriptos = inscriptos
+    
+    # Este método cuenta la cantidad de egresados de la carrera
+    # y muestra el promedio de cada uno de ellos (Sin desaprobados)
+    
+    def listar_egresados(self) -> int:
+        cant_egresados = 0
+        # Recorro todos los alumnos de la CARRERA
+        iter_alumnos = iter(self.inscriptos)
+        alumno = next(iter_alumnos, None)
+        while alumno is not None:
+            f_egreso = alumno.fecha_egreso
+            if f_egreso is not None:
+                cant_egresados += 1
+                # Recorro todas las NOTAS de los ALUMNOS
+                acumula_notas = 0
+                cant_examenes_aprobados = 0
+                for examen in alumno.examenes:
+                    if examen.nota >= 6:
+                        acumula_notas += examen.nota
+                        cant_examenes_aprobados += 1
+            
+                promedio = acumula_notas / cant_examenes_aprobados
+                print(f"Egresado {alumno.nombre} - Promedio: {promedio:.2f}")
+
+            alumno = next(iter_alumnos, None)
+        return cant_egresados
+    # Este método cuenta la cantidad de egresados de la carrera
+    # y muestra el promedio de cada uno de ellos (Sin desaprobados)
+    
+
+class Examen:
+    def __init__(self, tipo, nota: float, fecha: datetime):
+        self.tipo = tipo
+        self.nota = nota
+        self.fecha = fecha
+
+
+# Ejemplo de uso
+if __name__ == "__main__":
+    alumno1 = Alumno("Juan", datetime.now(), None)
+    alumno2 = Alumno("María", datetime.now(), None)
+    alumnos = list[alumno1, alumno2]
+
+    docente = Docente("Pablo")
+
+    catedra1 = Catedra("poo", docente)
+    catedras = list[catedra1]
+
+    comision1 = Comision(datetime.today(), 111, docente)
+    comision1.agregar_alumno(alumno1)
+    comision1.agregar_alumno(alumno2)
+
+    catedra1.agregarComision(comision1)
+
+    carrera = Carrera("ii", catedras, alumnos)
+
+    universidad = Universidad("FICH")
+    universidad.agregar_Carrera(carrera)
+
+
+    universidad.listar_alumnos(catedra1)

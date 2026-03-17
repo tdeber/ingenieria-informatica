@@ -1,0 +1,35 @@
+#Escribe una función recursiva que calcule el factorial de un número. 
+# Entrada: a0 = n 
+# Salida: a0 = n! 
+#factorial: 
+# Caso base: si n == 0, retornar 1 
+# Caso recursivo: n * factorial(n-1) 
+#ret 
+
+.data
+	num: .word 5
+
+.text
+.global main
+
+main:
+	la t0,num
+	lw a0,0(t0)
+	jal factorial
+	
+	fin:
+	
+	ret
+factorial:
+	beq a0,x0,igualcero
+	addi a1,a0,-1
+	jal factorial
+	mul a0,a0,a1
+		
+
+igualcero:
+	addi a0,a0,1
+	j fin
+
+
+

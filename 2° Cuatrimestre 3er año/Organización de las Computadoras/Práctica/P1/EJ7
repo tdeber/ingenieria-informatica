@@ -1,0 +1,17 @@
+#Contar cuántos bits están en 1 en t0 = 21(b10101) y guardar el resultado en t1.
+
+addi t0,x0,21
+addi t1,x0,0 #Contador de 1s.
+
+loop:
+	beq t0,x0,fin
+	andi t2,t0,1 #Esto me guarda el bit menos significativo
+	srli t0,t0,1 #Desplazo el registro 1bit a la derecha (agrega 0 a la izq)
+	beq t2,x0,loop #Si es cero vuelvo al loop
+	addi t1,t1,1 #Si es uno incremento
+	beq t0,x0,fin #Si t0=0 no tengo 1s que contar, corto
+	j loop #Vuelvo al loop
+fin: 
+
+
+	

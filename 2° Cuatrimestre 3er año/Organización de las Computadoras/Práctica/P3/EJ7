@@ -1,0 +1,48 @@
+.data
+	mem: .word 0
+	
+.text
+.global main
+
+main:
+	addi a0,a0,1
+	
+	jal fibonacci
+	
+	ecall
+	
+fibonacci:
+
+	add t5,x0,a0	#Este seria mi n
+	addi t0,x0,0	#f(n-2)=0
+	addi t1,x0,1	#f(n-1)=1
+	beq a0,t0,cero
+	beq a0,t1,uno
+	
+	addi t3,x0,2	#iteración i=2
+	
+	loop_while:
+		add t2,t0,t1	#f(n)=f(n-2)+f(n-1)
+		
+		add t0,x0,t1	#f(n-2)=f(n-1)
+		add t1,x0,t2	#f(n-1)=f(n)
+		
+		add a0,x0,t2	#a0=f(n)
+		
+		addi t3,t3,1	#i=i+1
+		ble t3,t5,loop_while	#i<n-> fin ... 
+		j fin
+		
+		
+cero:
+	addi a0,x0,0
+	ret
+uno:
+	addi a0,x0,1
+	ret
+fin:
+	ret
+		
+	
+	
+	

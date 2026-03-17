@@ -1,0 +1,83 @@
+import datetime
+
+class Facultad:
+    def __init__(self,nombre):
+        self.nombre = nombre
+        self.carreras = []
+    
+    def agregarCarrera(self,carrera):
+        self.carreras.append(carrera)
+    
+    def mostrarCarrerasYAlumnos(self):
+        print("Facultad: ", self.nombre)
+
+        for carrera in self.carreras:
+            print("Carrera:", carrera.nombre)
+            print("Alumnos:")
+            for inscripto in carrera.inscripciones:
+                print("    -",inscripto.alumno.__str__()," - ", inscripto.__str__())
+                
+
+
+class Carrera:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.inscripciones = []
+
+    def agregarInscripto(self, inscripto):
+        self.inscripciones.append(inscripto)
+
+    def mostrarInscriptos(self):
+        for inscripcion in self.inscripciones:
+            print(inscripcion)
+
+    def __str__(self):
+        return f"Carrera: {self.nombre}"
+
+
+class Inscripcion:
+    def __init__(self, alumno, fecha_inscripcion):
+        self.alumno = alumno
+        self.fecha_inscripcion = fecha_inscripcion
+    
+    def __str__(self):
+        return f"{self.fecha_inscripcion}"
+
+
+class Alumno:
+    def __init__(self, nombre, dni, fecha_nacimiento):
+        self.nombre = nombre
+        self.dni = dni
+        self.fecha_nacimiento =  fecha_nacimiento
+    
+    def calcularEdad(self):
+        edad = datetime.date.today().year - self.fecha_nacimiento.year
+        
+        if datetime.date.today().month < self.fecha_nacimiento.month:
+            edad -= edad
+        elif ((datetime.date.today().month == self.fecha_nacimiento.month) 
+              and (datetime.date.today().day < self.fecha_nacimiento.day)):
+            edad -= edad
+        return edad
+    def __str__(self):
+        return f"{self.nombre}"
+
+if __name__ == "__main__":
+    # Crear facultad
+    facultad = Facultad("FICH")
+
+    # Crear carreras
+    informatica = Carrera("Ingeniería en Informática")
+    facultad.agregarCarrera(informatica)
+    # Crear alumnos
+    alumno1 = Alumno("Alumno1", "11.111.111", datetime.date(1990, 11, 11))
+
+    # Crear inscripciones, agregar a facultad, etc..
+    inscripcion1 = Inscripcion(alumno1,datetime.date(2024, 4, 2))
+    informatica.agregarInscripto(inscripcion1)
+    # Completar
+
+    # Mostrar información
+    facultad.mostrarCarrerasYAlumnos()
+
+

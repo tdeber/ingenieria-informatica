@@ -1,0 +1,11 @@
+#Calcular el valor absoluto de t0 = -42 y guardarlo en t1. 
+
+addi t0,x0,-42
+blt t0,x0,negativo
+add t1,x0,t0
+j fin
+
+negativo:
+	sub t1,x0,t0
+	
+fin:

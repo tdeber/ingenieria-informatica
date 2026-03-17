@@ -1,0 +1,32 @@
+.data
+	arreglo: .word 1 7 8 -3 -5 8 -6 4
+	length: .word 8
+.text
+.global main
+
+main:
+	la t0,arreglo	#Dirección de arreglo
+	la t1,length	#Dirección del tamaño del arreglo
+	
+	lw t1,0(t1)		#Tamaño del arreglo
+	li t2,0		#Contador
+	li t3,0		#Acumulador
+	
+	loop_while:
+		lw t4,0(t0)		#Valor del arreglo
+		add t3,t3,t4	#Acumulo
+		
+		addi t2,t2,1	#Incremento contador
+		addi t0,t0,4	#Incremento dirección
+		
+		blt t2,t1,loop_while	#Si contador < length vuelvo al loop
+	
+	add t5,x0,t3	#t5=14
+	div t5,t5,t1	#t5=1
+	
+	#resto = a-(a/b)*b
+	mul t6,t5,t1	#t6 = 1*8
+	sub t6,t3,t6	#t6 = 14-8
+	
+	
+	

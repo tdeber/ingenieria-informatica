@@ -1,0 +1,27 @@
+.data 
+	array: .word 3, 7, 2, 9, 5, 1 
+	length: .word 6 
+	result: .word 0 
+	
+.text
+.global main
+
+main:
+	la t0,array
+	la t1,length
+	la t2,result
+	
+	lw t1,0(t1)	#Hasta donde contar
+	lw t2,0(t2)	#Acumulador
+	li t3,0	#Contador
+	
+	
+	loop_for:
+		beq t3,t1,fin
+		addi t3,t3,1
+		
+		lw t4,0(t0)
+		addi t0,t0,4
+		add t2,t2,t4
+		j loop_for
+	fin:

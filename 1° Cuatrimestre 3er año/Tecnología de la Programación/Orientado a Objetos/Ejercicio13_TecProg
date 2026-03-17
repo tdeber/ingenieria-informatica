@@ -1,0 +1,78 @@
+from typing import List
+from datetime import datetime
+
+
+
+
+class Empleado:
+    def __init__(self, nombre, horas_trabajadas, tarifa_por_hora):
+            self.nombre = nombre
+            self.horas_trabajadas = horas_trabajadas
+            self.tarifa_por_hora = tarifa_por_hora
+
+    def getHoras(self):
+        return self.horas_trabajadas
+    
+    def getTarifaPorHora(self):
+         return self.tarifa_por_hora
+
+
+class CalcularSalario:
+     @staticmethod
+     def calcular_salario(empleado:Empleado):
+        return (empleado.getHoras() * empleado.getTarifaPorHora())
+
+class GenerarReportDesemp:
+     @staticmethod
+     def generar_reporte_desempenio(empleado:Empleado):
+        # Código para generar el reporte de desempeño
+        print("Reporte de dempeño....")
+
+#se viola el principio: Responsabilidad Unica-SRP ----------------------------------------
+
+
+from abc import ABC, abstractmethod
+
+class InterfazProducto(ABC):
+    def __init__(self, nombre, descuento):
+        self.nombre = nombre
+        self.descuento = descuento
+
+    def getDesceunto(self):
+        return self.descuento
+
+class Alimentos(InterfazProducto):
+    def __init__(self,nombre, descuento):
+        self.nombre = nombre
+        self.descuento = descuento
+
+class Limpieza(InterfazProducto):
+    def __init__(self,nombre, descuento):
+        self.nombre = nombre
+        self.descuento = descuento
+
+class Carrito:
+    def __init__(self, productos: list):
+        self.productos = productos
+    
+def calcular_descuento(productos: list):
+    for producto in productos:
+            print(f"{producto.nombre}")
+            print(f"{producto.descuento}%")
+            #Añadir más condiciones para nuevos tipos de productos y descuentos
+    
+
+
+#se viola el principio: Abierto Cerrado ----------------------------------------
+
+if __name__ == "__main__":
+     #empleado = Empleado("Tomas", 45, 1200)
+     #print(CalcularSalario.calcular_salario(empleado))
+     #GenerarReportDesemp.generar_reporte_desempenio(empleado)
+
+    #productos = [Alimentos('manzanas', 10), Limpieza('jabón', 15)]
+    #carrito = Carrito(productos)
+    #calcular_descuento(carrito.productos)
+    pass
+
+

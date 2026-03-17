@@ -1,0 +1,28 @@
+#Escriba un programa que reciba un número y cuente regresivamente hasta 0 con 
+#un WHILE
+
+.data
+num: .word 8 #Guardo un número en memoria que es el que voy a utilizar como entrada
+
+.text
+la t0,num 	#Guardo en t0 la dirección de memoria de num
+lw t1,0(t0)		#Guardo en t1 el valor que tiene la dirección de memoria.
+
+loop_while:
+	beq t1,x0,fin	#Si t1=0 -> Salir del bucle
+	addi t1,t1,-1	#Si t1!=0 -> Restarle 1
+	j loop_while	#Reiniciar el bucle
+fin:
+
+
+
+
+
+
+
+
+
+
+
+
+

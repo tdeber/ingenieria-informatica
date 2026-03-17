@@ -1,0 +1,49 @@
+from typing import List
+from datetime import datetime
+from abc import ABC, abstractmethod
+
+class Producto(ABC):
+    @abstractmethod
+    def calcular_descuento(self):
+        pass
+
+class Alimento(Producto):
+    def __init__(self, nombre, descuento):
+        self.nombre = nombre
+        self.descuento = descuento
+
+    def calcular_descuento(self):
+        print(f"Descuento del {self.descuento}% en {self.nombre}")
+
+
+class Limpieza(Producto):
+    def __init__(self, nombre, descuento):
+        self.nombre = nombre
+        self.descuento = descuento
+
+    def calcular_descuento(self):
+        print(f"Descuento del {self.descuento}% en {self.nombre}")
+
+
+class Carrito:
+    def __init__(self, productos: list):
+        self.productos = productos
+
+def calcular_descuento(productos: list):
+    for producto in productos:
+               producto.calcular_descuento()
+
+
+
+if __name__ == "__main__":
+
+    # Añadir más condiciones para nuevos tipos de productos y descuentos
+    productos = [
+        Alimento("manzanas", 15),
+        Limpieza("jabón", 10)
+    ]
+
+
+
+    carrito = Carrito(productos)
+    calcular_descuento(productos)

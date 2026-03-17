@@ -1,0 +1,14 @@
+#Calcular t2 = t0 * t1 usando sumas repetidas. (t0 = 4 y t1= 3) 
+
+addi t0,x0,4
+addi t1,x0,3
+
+#Necesito un bucle, un contaro que llegue a t1=3, y un acumulador(t2)
+
+addi t2,x0,0 #Acumulador en 0
+addi t3,x0,0 #Contador en 0
+
+loop:
+	add t2,t2,t0 #Incremento mi acumulador (Sumo 4 tres veces. 4*3)
+	addi t3,t3,1 #Incremento el contador (Cuando llegue a 3 salto)
+	blt t3,t1,loop #Si t3<t1 segui en el loop

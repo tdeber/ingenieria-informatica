@@ -1,0 +1,11 @@
+#Almacenar el máximo entre t0  = 8 y t1 = 12 en t2.
+addi t0,x0,18
+addi t1,x0,12
+
+blt t0,t1,esmenor
+add t2,x0,t0
+j fin
+esmenor:
+	add t2,x0,t1
+	
+fin:

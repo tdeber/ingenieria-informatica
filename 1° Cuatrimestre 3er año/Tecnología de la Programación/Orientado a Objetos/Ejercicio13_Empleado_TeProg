@@ -1,0 +1,42 @@
+from typing import List
+from datetime import datetime
+from abc import ABC, abstractmethod
+#El codigo violaba el principio de Responsabilidad unica. Haciendo que la clase Empleado
+#este encargada de almacenar los datos, calcular el salario y generar reportes de desempeño
+#
+class Empleado:
+    def __init__(self, nombre, horas_trabajadas, tarifa_por_hora):
+        self.nombre = nombre
+        self.horas_trabajadas = horas_trabajadas
+        self.tarifa_por_hora = tarifa_por_hora
+
+    def getHoras(self):
+        return self.horas_trabajadas
+    
+    def getTarifa(self):
+        return self.tarifa_por_hora
+    
+
+class Reporte(ABC):
+    @abstractmethod
+    def generarReporteDesempenio(self):
+        pass
+
+class ReporteEmpleado(Reporte):
+    def generarReporteDesempenio(empleado:Empleado):
+        print("Reporte")
+
+class CalcularSalario(ABC):
+    def calcular_salario(self):
+        pass
+
+class CalcSalarioEmpleado:
+    def calcular_salario(empleado:Empleado):
+        return empleado.getHoras() * empleado.getTarifa()
+
+
+if __name__ == "__main__":
+    empleado1 = Empleado("tomas",8,1500)
+    print(CalcSalarioEmpleado.calcular_salario(empleado1))
+    
+    

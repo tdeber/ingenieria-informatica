@@ -1,0 +1,152 @@
+import datetime
+
+
+class Empresa:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.jefes = []
+        self.mensuales = []
+        self.jornalizados = []
+
+    def agregarTrabajador(self, trabajador):
+        if isinstance (trabajador, Jefe):
+            self.jefes.append(trabajador)
+        elif isinstance (trabajador, Mensual):
+            self.mensuales.append(trabajador)
+        elif isinstance (trabajador, Jornalizado):
+            self.jornalizados.append(trabajador)
+        else:
+            print("No existe ese tipo de trabajor")
+
+    def calcSueldoTotal(self):
+        sJefes = 0
+        sMensuales = 0
+        sJornalizados = 0
+
+        for j in self.jefes:
+            sJefes += j.calcSueldo()
+
+        for m in self.mensuales:
+            sMensuales += m.calcSueldo()
+        
+        for jor in self.jornalizados:
+            sJornalizados += jor.calcSueldo()
+
+        print(sJefes+sMensuales+sJornalizados)
+
+    def __str__(self):
+        return F"{self.nombre}"
+    
+
+class Direccion:
+    def __init__(self, ciudad, calle, nro):
+        self.ciudad = ciudad
+        self.calle = calle
+        self.nro = nro
+    
+    def __str__(self):
+        return F"{self.ciudad}, {self.calle} {self.nro}"
+
+
+class Trabajador:
+    def __init__(self, nombre, apellido, direccion, dni):
+        self.nombre = nombre
+        self.apellido = apellido
+        self.direccion = direccion
+        self.dni = dni
+
+    def calcSueldo(self):
+        pass
+
+
+class Mensual(Trabajador):
+    def __init__(self, nombre, apellido, direccion, dni, categoria):
+        super().__init__(nombre, apellido, direccion, dni)
+        self.categoria = categoria
+
+    def calcSueldo(self):
+        return self.categoria.getSueldo()
+    
+
+class Categoria:
+    def __init__(self, nombre, sueldo):
+        self.nombre = nombre
+        self.sueldo = sueldo
+
+    def getSueldo(self):
+        return self.sueldo
+    
+    def __str__(self):
+        return F"{self.nombre}"
+    
+
+class Jornalizado(Trabajador):
+    def __init__(self, nombre, apellido, direccion, dni):
+        super().__init__(nombre, apellido, direccion, dni)
+        self.horas = 0
+        self.monto_hora1 = 0
+        self.monto_hora2 = 0
+
+    def calcSueldo(self):
+        if self.horas <= 40 :
+            monto = (self.hora * self.monto_hora1)
+        else:
+            horas = self.horas
+            monto = 40 * self.monto_hora1
+            horas = horas - 40
+            monto = monto + (horas * self.monto_hora2)
+        
+        return monto
+    
+    def agregarHoras(self, horas):
+        self.horas += horas
+
+    def agregarMontoHoras1(self, monto):
+        self.monto_hora1 += monto
+
+    def agregarMontoHoras2(self, monto):
+        self.monto_hora2 += monto
+
+
+class Jefe(Trabajador):
+    def __init__(self, nombre, apellido, direccion, dni):
+        super().__init__(nombre, apellido, direccion, dni)
+        self.sueldo = 0
+        self.jordalizado = []
+        self.mensual = []
+
+    def calcSueldo(self):
+        return self.sueldo
+    
+    def agregarSueldo(self, sueldo):
+        self.sueldo = sueldo
+
+    def agregarMensual(self, mensual):
+        self.mensual.append(mensual)
+        
+    def agregarJornalizado(self, jornalizado):
+        self.jordalizado.append(jornalizado)
+
+
+if __name__ == "__main__":
+
+    empresa1 = Empresa("AQA")
+    jefe1 = Jefe("oscar","debernardi","her2119",23394564)
+    cat1 = Categoria("c1",200)
+    cat2 = Categoria("c2",100)
+    mensual1 = Mensual("cintia","juarez","her2119",24394564, cat1)
+    mensual2 = Mensual("tomas","debernardi","her2119",44780831, cat2)
+    jornal1 = Jornalizado("lucas","yqs","gto1441",41514997)
+
+    empresa1.agregarTrabajador(jefe1)
+    empresa1.agregarTrabajador(mensual1)
+    empresa1.agregarTrabajador(mensual2)
+    empresa1.agregarTrabajador(jornal1)
+
+    jefe1.agregarSueldo(1000)
+    
+    jornal1.agregarHoras(42)
+    jornal1.agregarMontoHoras1(10)
+    jornal1.agregarMontoHoras2(20)
+
+    empresa1.calcSueldoTotal()

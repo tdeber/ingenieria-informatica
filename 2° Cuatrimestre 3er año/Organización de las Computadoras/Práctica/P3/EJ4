@@ -1,0 +1,56 @@
+.data
+	array: .word 3, 7, 2, 9, 5, 1 
+	long: .word 6
+	
+.text
+.global main
+
+main:
+	la a0,array
+	la a1,long
+	lw a1,0(a1)
+	
+	jal encontrar_max
+	
+encontrar_max:
+	add t0,a0,x0	#Dirección Array
+	lw a0,0(a0)		#Mayor
+	addi t0,t0,4
+	li t1,0		#contador
+	addi a1,a1,-1	#Porque ya tome el primer valor
+	
+	
+	
+	loop_while:
+		beq t1,a1,fin
+		lw t2,0(t0)
+		slt t3,a0,t2
+		bne t3,x0,esmenor
+		
+		addi t0,t0,4
+		addi t1,t1,1
+		
+		j loop_while
+		
+	esmenor:
+		add a0,t2,x0
+		addi t0,t0,4
+		addi t1,t1,1
+		
+		j loop_while
+	fin:
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

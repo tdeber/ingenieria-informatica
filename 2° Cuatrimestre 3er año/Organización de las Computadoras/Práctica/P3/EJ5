@@ -1,0 +1,18 @@
+.text
+.global main
+
+main:
+	li a0,20
+	jal celsius_a_fahrenheit	
+	j fin
+celsius_a_fahrenheit:
+	li t0,9
+	li t1,5
+	div t2,t0,t1
+	
+	mul a0,a0,t2
+	addi a0,a0,32
+	
+	ret
+	
+fin:

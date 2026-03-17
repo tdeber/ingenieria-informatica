@@ -1,0 +1,11 @@
+#Determinar si el valor en t0 = 6 es par (guardar 1 en t1 si es par, 0 si no).
+
+li t0,7		#Guardo, t0=7
+andi t1,t0,1	#Guardo en t1 el lsb
+beq t1,x0,par	#Si el bit es 0 es par
+j impar		#Si el bit es 1 es impar
+
+impar:
+	li t2,1
+par:
+	li t2,0

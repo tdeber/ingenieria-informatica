@@ -1,0 +1,97 @@
+import datetime
+
+
+class Empresa:
+    def __init__(self, nombre):
+        self.nombreEmpresa = nombre
+        self.facturas = []
+        self.productos = []
+    
+    def agregrarFactura(self, factura):
+        self.facturas.append(factura)
+
+    def agregarProducto(self, producto):
+        self.productos.append(producto)
+    
+    def verFactura(self, nro):
+        for factura in self.facturas:
+            if factura.numero == nro:
+             print("Empresa: ",self.nombreEmpresa)
+             print()
+             print("Factura nro ",nro)
+             print("Cliente ",factura.cliente.__str__())
+             print("Fecha ",factura.fecha)
+             print("Total", factura.verMonto())
+            else:
+                print("No se encontro factura")
+        
+        
+        
+
+
+class Producto:
+    def __init__(self, nombre, precio, stock):
+        self.nombre = nombre
+        self.precio = precio
+        self.stock = stock
+
+    def verStock(self):
+        print(self.stock)
+    
+    def modStock(self,cant):
+        self.stock += cant
+
+    def verPrecio(self):
+        return self.precio
+    
+    def __str__(self):
+        return F"{self.nombre}"
+
+
+class Factura:
+    def __init__(self, numero, cliente):
+        self.numero = numero
+        self.fecha = datetime.date.today()
+        self.cliente = cliente
+        self.productos = []
+        self.cantidad = []
+        self.monto = 0 
+
+    def agregarProducto(self, producto, cant):
+        self.productos.append(producto)
+        self.cantidad.append(cant)
+        self.actualizarMonto(producto.verPrecio(), cant)
+    
+    def actualizarMonto(self, precio, cant):
+        self.monto += (precio*cant)
+
+    def verMonto(self):
+        return self.monto
+
+
+class Cliente:
+    def __init__(self, nombre, cuit):
+        self.nombre = nombre
+        self.cuit = cuit
+
+    def __str__(self):
+        return F"{self.nombre} - {self.cuit}"
+    
+
+if __name__ == "__main__":
+    empresa = Empresa("AQA")
+    producto1 = Producto("Cloro", 100,10)
+    producto2 = Producto("SulfatoCobre", 250, 123)
+
+    empresa.agregarProducto(producto1)
+    empresa.agregarProducto(producto2)
+
+    cliente1 = Cliente("Pepito",789456123)
+
+    factura1 = Factura(0, cliente1)
+    factura1.agregarProducto(producto1,5)
+    factura1.agregarProducto(producto2,5)
+
+    empresa.agregrarFactura(factura1)
+
+    empresa.verFactura(0)

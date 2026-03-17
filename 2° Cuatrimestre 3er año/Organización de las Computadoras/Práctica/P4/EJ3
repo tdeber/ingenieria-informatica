@@ -1,0 +1,16 @@
+.text
+.global main
+
+main:
+	li t0,0x10000000		#Guardo en t0 esa dirección
+	li t1,10			#t1 = 10
+	sw t1,0(t0)			#Cargo en la dirección t0 el valor de t1
+	
+	loop_while:
+		beq t1,x0,fin	#Mientras el valor de la rección
+					#sea distinto a 0 decrementa
+		addi t1,t1,-1
+		sw t1,0(t0)
+	
+		j loop_while
+	fin:

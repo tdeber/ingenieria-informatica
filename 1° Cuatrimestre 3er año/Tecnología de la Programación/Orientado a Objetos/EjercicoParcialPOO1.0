@@ -1,0 +1,145 @@
+from typing import List
+from datetime import datetime
+from abc import ABC, abstractmethod
+
+class Facultad:
+    def __init__(self, sigla):
+        self.sigla = sigla
+
+
+class Entrega:
+    def __init__(self, fecha:datetime, cupon, comedor):
+        self.fecha = fecha
+        self.cupon = cupon
+        self.comedor = comedor
+
+
+
+
+class Cupon:
+    def __init__(self, identificador:str, fechaCompra:datetime):
+        self.identificador = identificador
+        self.fechaCompra = fechaCompra
+        self.entrega = None
+
+    def getIdentidicador(self):
+        return self.identificador
+    
+    def getFechaCompra(self):
+        return self.fechaCompra
+    
+    def addEntrega(self, entrega: Entrega):
+        self.entrega = entrega
+    
+
+
+class RolUsuarioDTO:
+    def __init__(self):
+        self.usuario = None
+
+
+class RolAdminDTO(RolUsuarioDTO):
+    def __init__ (self, clave):
+        self.clave = clave
+
+
+#Saldo de Cupones?
+class RolComensalDTO(RolUsuarioDTO):
+    def __init__(self, ultimoAcceso:datetime, tokenSesion: str, cupones:list[Cupon], facultad:Facultad):
+        self.ultimoAcceso = ultimoAcceso
+        self.tokenSesion = tokenSesion
+        self.cupones = cupones
+        self.facultad = facultad
+
+    def eliminarCupon(self, cupon:Cupon):
+        #funcion que busca y elimina el cupon del usuario
+        pass
+
+
+class RolventanillaDTO:
+    def __init__ (self, clave, comedor):
+        self.clave = clave
+        self.comedor = comedor
+
+
+class ComedorDTR:
+    def __init__(self, domicilio, descripcion):
+        self.domicilio = domicilio
+        self.descripcion = descripcion
+        
+
+    def getDomicilio(self):
+        return self.domicilio
+
+        
+
+    
+
+
+
+
+
+
+class UsuarioDTO:
+    def __init__(self, usuario, apellido, nombre, correo):
+        self.usuario = usuario
+        self.apellido = apellido
+        self.nombre = nombre
+        self.correo = correo
+        self.roles = []
+
+    def getUsuario(self):
+        return self.usuario
+    
+    def getApellido(self):
+        return self.apellido
+    
+    def getNombre(self):
+        return self.nombre
+    
+    def getCorreo(self):
+        return self.correo
+    
+    def agregarRol(self, rol:RolUsuarioDTO):
+        self.roles.append(rol)
+
+    def CantRoles(self):
+        contador = 0
+        for rol in self.roles:
+             c += 1
+        return c
+
+    def esComensal(self):
+        es_comensal:bool = None
+        for rol in self.roles:
+            if isinstance(rol, RolComensalDTO):
+                es_comensal = True
+            else:
+                es_comensal = False
+
+        return es_comensal
+
+     
+
+class Universidad:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.comedores = []
+        self.facultades = []
+        self.usuariosDTO = []
+
+    def getNombre(self):
+        return self.nombre
+    
+    def agregarComedor(self, comedor: ComedorDTR):
+        self.comedores.append(comedor)
+
+    def agregarFacultad(self, faculdad: Facultad):
+        self.facultades.append(faculdad)
+
+    def agregarUsuarioDTO(self, usuarioDTO: UsuarioDTO):
+        self.usuariosDTO.append(usuarioDTO)
+
+    def listarComensalesConMasRoles(self):
+        for usuarioDTO in self.usuariosDTO:
+            usuarioDTO.ComensalmasRoles()

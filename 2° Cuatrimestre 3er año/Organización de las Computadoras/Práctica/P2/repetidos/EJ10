@@ -1,0 +1,29 @@
+
+.text
+.global main
+
+main:
+	li t0,10
+	li t1,0
+	li t2,1
+	
+	li t3,0	#Contador
+	
+	addi sp,sp,-8
+	sw t1,4(sp)
+	sw t2,0(sp)
+	
+	loop_while:
+		beq t0,t3,fin
+		addi t3,t3,1
+		
+		lw t1,0(sp)	#1
+		lw t2,4(sp)	#0
+		#addi sp,sp,8
+		
+		add t2,t2,t1
+		
+		addi sp,sp,-4
+		sw t2,0(sp)
+		j loop_while
+	fin:

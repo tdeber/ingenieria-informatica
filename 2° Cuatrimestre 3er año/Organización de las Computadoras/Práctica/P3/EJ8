@@ -1,0 +1,29 @@
+.data 
+texto: .asciz "Hola Mundo RISC-V" 
+.text 
+	la a0,texto			#Dirección de memoria
+	jal a_mayusculas		#Salto a la funcion
+	ecall				#Fin del programa
+a_mayusculas: 	
+	li t1,'a'			#Guardo el valor de a
+	li t2,'z'			#Gaurdo el valor de z
+	
+	loop_while:
+		lb t0,0(a0)		#t0 = al valor ascii de la letra
+		beq t0,x0,fin	#si t0=0 entonces no hay letra
+		
+		blt t0, t1, siguiente   # si < 'a', saltar
+        	bgt t0, t2, siguiente   # si > 'z', saltar
+		
+		addi t0,t0,-32		#Le resto -32 al ascii
+		sb t0,0(a0)			#Cargo el valor en mayuscula
+		j siguiente			#Repito
+		
+ret 
+
+siguiente:
+	addi a0,a0,1	#Incremento la dirección
+	j loop_while
+
+fin:
+	ret

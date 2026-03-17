@@ -1,0 +1,27 @@
+.data 
+	numero: .word 0
+	resultado: .word 99
+.text
+.global main
+
+main:
+	la t0, numero	#Dirección numero
+	la t1, resultado	#Dirección resultado
+	lw t0,0(t0)		#Valor de numero
+	
+	li t2,0		#Acumulador
+	add t3,x0,t0	#4
+	addi t4,t3,-1	#Decrementa
+	li t5,0		#RTA
+	
+	beq t0,x0,uno
+	loop_while:
+		beq t4,x0,fin
+		mul t2,t0,t4
+		add t5,t5,t2
+		addi t4,t4,-1
+		j loop_while
+	uno:
+		addi t5,t5,1
+		j fin
+	fin:

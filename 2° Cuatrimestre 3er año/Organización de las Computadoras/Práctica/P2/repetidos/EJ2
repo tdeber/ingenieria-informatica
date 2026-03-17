@@ -1,0 +1,18 @@
+.data
+	array: .word 1,2,3,4,5
+	
+.text
+.global main
+
+main:
+	la t0,array
+	li t1,0	#Acumulador
+	li t2,0	#Contador
+	li t4,5
+	
+	loop:
+		lw t3,0(t0)
+		add t1,t1,t3
+		addi t2,t2,1
+		addi t0,t0,4
+		blt t2,t4,loop

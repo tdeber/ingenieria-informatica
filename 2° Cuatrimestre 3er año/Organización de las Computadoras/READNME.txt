@@ -1,0 +1,64 @@
+# Organización de las Computadoras – Programación en Assembly
+
+Material teórico y práctico desarrollado en la materia **Organización de las Computadoras**  
+Carrera: Ingeniería Informática.
+
+---
+
+## Contexto
+
+En esta asignatura se estudiaron los principios fundamentales del funcionamiento interno de una computadora, incluyendo la arquitectura del procesador, la gestión de memoria y la ejecución de instrucciones a bajo nivel.
+
+Como parte de las actividades prácticas, se trabajó con **programación en lenguaje Assembly**, permitiendo comprender la relación directa entre el software y el hardware.
+
+---
+
+## Objetivos
+
+- Comprender la arquitectura básica de un computador  
+- Analizar el ciclo de ejecución de instrucciones  
+- Trabajar con registros, memoria y direccionamiento  
+- Programar algoritmos simples en lenguaje Assembly  
+- Interpretar el funcionamiento del stack y subrutinas  
+- Entender la representación binaria de datos  
+
+---
+
+## Contenidos Trabajados
+
+- Arquitectura de Von Neumann  
+- Unidad de control y unidad aritmético-lógica (ALU)  
+- Registros del procesador  
+- Modos de direccionamiento  
+- Instrucciones aritméticas y lógicas  
+- Saltos condicionales e incondicionales  
+- Manejo de pila (stack)  
+- Llamadas a subrutinas  
+
+---
+
+## Actividades Prácticas
+
+- Desarrollo de programas simples en Assembly  
+- Implementación de algoritmos básicos  
+- Manipulación directa de registros y memoria  
+- Uso de estructuras de control mediante saltos  
+- Simulación y análisis del comportamiento del programa  
+
+---
+
+## Habilidades Desarrolladas
+
+- Comprensión del funcionamiento interno del computador  
+- Programación a bajo nivel  
+- Pensamiento lógico orientado a hardware  
+- Optimización básica de código  
+- Interpretación de ejecución paso a paso  
+
+---
+
+## Contenido del repositorio
+
+- Apuntes teóricos  
+- Ejercicios prácticos  
+- Programas en Assembly
